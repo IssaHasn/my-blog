@@ -1,0 +1,46 @@
+{% extends "blog/base.html" %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+
+    <div class="post_data">
+        <h2>{{ post.title }}</h2>
+        <p class="data">
+            <b>Published {{ post.publish }} by {{ post.author }} :</b>
+            <br/>
+            <br/>
+        
+            <p>{{ post.body|linebreaks }}</p>
+        </p>
+    </div>
+    <br>
+    <hr>
+    <br>
+    <form method="POST" class="comment_form">
+        {% csrf_token %}
+        <p>Enter your name ...</p>
+        <div class="user_name_input">
+            {{ form.user_name }}
+        </div>
+        <br>
+        <br>
+        <p>Enter your comment ...</p>
+        <div class="comment_input">
+            {{ form.body }}
+        </div>
+        <input type="submit" value="Add Comment" class="add_comment">
+    </form>
+    <br>
+    <hr>
+    <br>
+    <div class="comments_box">
+        {% for comment in comments %}
+        <div class="comment">
+            <h4>{{ comment.user_name }} :</h4>
+            <p>{{ comment.body }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    <br>
+{% endblock %}

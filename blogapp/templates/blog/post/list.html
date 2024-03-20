@@ -1,0 +1,26 @@
+{% extends "blog/base.html" %}
+
+{% block title %}POSTS{% endblock %}
+
+{% block content %}
+
+    <h2 class="posts_page_title"> POSTS :</h2>
+    {% include "blog/post/pagination.html" with page=posts %}
+    <div id="posts_contener">
+        {% for post in posts %}
+        <div class="post">
+            <h2>
+                <a href="{{post.get_absolute_url}}">
+                    {{ post.title }}
+                </a>
+            </h2>
+            <p class="data">
+                Published {{ post.publish }} by {{ post.author }}
+                <br/>
+                <br/>
+            </p>
+            {{ post.body|truncatewords:10|linebreaks }}
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}
